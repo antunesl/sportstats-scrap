@@ -30,13 +30,13 @@ module.exports = {
         console.log(JSON.stringify(results))
 
         // console.lorekg('before send  ->'.JSON.stringify(results));
-        // request.post({
-        //     url: 'http://127.0.0.1:3000/api/teams/scrap',
-        //     json: true,
-        //     body: results
-        // }, function (error, response, body) {
-        //     console.log('API - ' + body)
-        // });
+        request.post({
+            url: 'http://127.0.0.1:3000/api/teams/previews/scrap',
+            json: true,
+            body: results
+        }, function (error, response, body) {
+            console.log('API - ' + body)
+        });
 
         nbot.end();
         nbot.proc.disconnect();

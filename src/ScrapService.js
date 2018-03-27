@@ -33,7 +33,7 @@ app.post('/WhoScoredPreviewFinder', function* (req, res) {
 
 app.post('/WhoScoredPreviewScraper', function* (req, res) {
   console.log('WhoScored Preview Scraper')
-  var results = yield* whoScoredPreviewScraper.scrapGames(req.body.games);
+  var results = yield* whoScoredPreviewScraper.scrapGames(req.body.previews);
   res.send('Hello')
 });
 

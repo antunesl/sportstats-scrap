@@ -16,7 +16,7 @@ process.on('unhandledRejection', (reason, p) => {
     }
 });
 module.exports = {
-    scrapGames: function* run(competitionsToScrap) {
+    scrapGames: function* run(gamesToScrap) {
         nbot = nightmare({
             switches: { 'ignore-certificate-errors': true },
             show: false
@@ -24,8 +24,8 @@ module.exports = {
 
         console.log('start')
         z = 0;
-        console.log(JSON.stringify(competitionsToScrap));
-        results = yield* running(competitionsToScrap);
+        console.log(JSON.stringify(gamesToScrap));
+        results = yield* running(gamesToScrap);
 
         console.log(JSON.stringify(results))
 
@@ -37,6 +37,14 @@ module.exports = {
         // }, function (error, response, body) {
         //     console.log('API - ' + body)
         // });
+
+        request.post({
+            url: 'http://127.0.0.1:3000/api/teams/games/scrap',
+            json: true,
+            body: results
+        }, function (error, response, body) {
+            console.log('API - ' + body)
+        });
 
         nbot.end();
         nbot.proc.disconnect();
@@ -55,7 +63,7 @@ function* running(games) {
     var results = [];
     var retries = [];
 
-    console.log('Competitions: ' + JSON.stringify(games));
+    console.log('Games: ' + JSON.stringify(games));
 
     // Initialize retry counters
     games.forEach(league => {
