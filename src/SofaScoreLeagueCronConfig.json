@@ -1,0 +1,45 @@
+{
+  "apps": [
+    {
+      "name": "WhoScoredPreviewFinderCron",
+      "script": "WhoScoredPreviewFinderCron.js",
+      "env": {
+        "DISPLAY": ":99"
+      }
+    },
+    {
+      "name": "WhoScoredPreviewScraperCron",
+      "script": "WhoScoredPreviewScraperCron.js",
+      "env": {
+        "DISPLAY": ":99"
+      }
+    },
+    {
+      "name": "SofaScoreLeagueCron",
+      "script": "SofaScoreLeaguesCron.js",
+      "env": {
+        "DISPLAY": ":99"
+      }
+    },
+    {
+      "name": "SofaScoreTeamsCron",
+      "script": "SofaScoreTeamsCron.js",
+      "env": {
+        "DISPLAY": ":99"
+      }
+    },
+    {
+      "name": "ScrapService",
+      "script": "ScrapService.js",
+      "env": {
+        "DISPLAY": ":99"
+      }
+    },
+    {
+      "name": "Xvfb",
+      "interpreter": "none",
+      "script": "Xvfb",
+      "args": ":99"
+    }
+  ]
+}
