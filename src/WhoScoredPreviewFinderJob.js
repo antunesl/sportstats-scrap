@@ -40,7 +40,7 @@ module.exports = {
         // });
 
         request.post({
-            url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'teams/games/scrap',
+            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath+ 'teams/games/scrap',
             json: true,
             body: results
         }, function (error, response, body) {

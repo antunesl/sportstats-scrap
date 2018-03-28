@@ -32,7 +32,7 @@ module.exports = {
 
         // console.lorekg('before send  ->'.JSON.stringify(results));
         request.post({
-            url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'teams/previews/scrap',
+            url: 'http://' +settings.api.hostUrl + settings.api.apiBasePath + 'teams/previews/scrap',
             json: true,
             body: results
         }, function (error, response, body) {

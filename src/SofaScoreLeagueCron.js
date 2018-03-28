@@ -8,7 +8,7 @@ function Job() {
 
 
     var t = request.get({
-        url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'leagues/scrap/pending',
+        url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'leagues/scrap/pending',
         json: true,
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {

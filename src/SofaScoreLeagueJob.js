@@ -27,7 +27,7 @@ module.exports = {
 
         console.log(JSON.stringify('done'));
         request.post({
-            url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + ' leagues/scrap',
+            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'leagues/scrap/pending',
             json: true,
             body: results
         }, function (error, response, body) {
