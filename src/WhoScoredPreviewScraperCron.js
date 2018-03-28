@@ -39,7 +39,7 @@ cron.schedule('*/1 * * * *', function () {
             console.log('Status:', res.statusCode);
         } else {
 
-            if (data.result.docs.length > 0) {
+            if (data!= null && data.result != null && data.result.length > 0 && data.result.docs.length > 0) {
 
                 request.post({
                     url: 'http://127.0.0.1:3007/WhoScoredPreviewScraper',
