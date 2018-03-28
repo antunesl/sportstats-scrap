@@ -133,8 +133,8 @@ function* findPreviews(game, retry) {
 
                 if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
                     previews = {
-                        home: game.nextGame.homeTeamLink,
-                        away: game.nextGame.awayTeamLink,
+                        home: game.team,
+                        
                         link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
                     }
 
