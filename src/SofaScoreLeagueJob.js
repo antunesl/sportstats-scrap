@@ -227,7 +227,7 @@ function* scrapLeagueInfo(league) {
                 provider: league.providers[0],
                 standings: items,
                 topScores: topScores,
-                name: $('h2.page-title')[0].innerText.trim(),
+                name: $('h2.page-title > span')[0].innerText.trim(),
 
                 permalink: league.permalink,
                 country: league.country,
