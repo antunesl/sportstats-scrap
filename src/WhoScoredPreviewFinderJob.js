@@ -74,7 +74,7 @@ function* running(games) {
             retryCount: 0
         });
     });
-
+    
     for (i = 0; i < games.length; i++) {
         console.log(' --- ');
         console.log('Running [' + (i + 1) + '] of ' + games.length)
@@ -106,7 +106,7 @@ function* running(games) {
     //     }
     // }
 
-    return yield results;
+    return yield {docs : results} ;
 
 }
 
@@ -125,18 +125,20 @@ function* findPreviews(game, retry) {
         .wait('table#team-fixtures-summary')
         .evaluate(function () {
 
-            var previews = [];
+            var previews;
 
             var rows = $('table#team-fixtures-summary > tbody > tr');
 
             for (var i = 0, row; row = rows[i]; i++) {
 
                 if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
-                    previews.push({
-                        home: row.querySelectorAll('td.team.home')[0].innerText,
-                        away: row.querySelectorAll('td.team.away')[0].innerText,
+                    previews = {
+                        home: game.nextGame.homeTeamLink,
+                        away: game.nextGame.awaTeamLink,
                         link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
-                    });
+                    }
+
+                    break;
                 }
             }
 
