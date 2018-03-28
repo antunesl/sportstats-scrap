@@ -1,5 +1,6 @@
 var
     vo = require('vo'),
+    settings = require('./settings'),
     request = require('request');
 
 function Job() {
@@ -7,7 +8,7 @@ function Job() {
 
 
     var t = request.get({
-        url: 'http://wigserver.myvnc.com:3000/scrap/leagues/pending',
+        url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'leagues/scrap/pending',
         json: true,
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {

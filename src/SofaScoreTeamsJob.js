@@ -26,10 +26,10 @@ module.exports = {
         z = 0;
         results = yield* running(teamsToScrap);
         //console.log(JSON.stringify(results))
-
+ 
         // console.lorekg('before send  ->'.JSON.stringify(results));
         request.post({
-            url: 'http://127.0.0.1:3000/api/teams/scrap',
+            url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + '/api/teams/scrap',
             json: true,
             body: results
         }, function (error, response, body) {

@@ -9,7 +9,7 @@ cron.schedule('*/1 * * * *', function () {
     console.log('start Games')
 
     var t = request.get({
-        url: 'http://127.0.0.1:3000/api/teams/games/scrap/pending',
+        url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'teams/games/scrap/pending',
         json: true, 
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {

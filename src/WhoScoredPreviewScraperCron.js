@@ -25,7 +25,7 @@ cron.schedule('*/1 * * * *', function () {
     // }
 
     var t = request.get({
-        url: 'http://127.0.0.1:3000/api/teams/previews/pending',
+        url: 'http://' + settings.api.apiBasePath + settings.api.hostUrl + 'teams/previews/scrap/pending',
         json: true,
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {
