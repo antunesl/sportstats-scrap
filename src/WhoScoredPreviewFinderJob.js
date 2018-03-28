@@ -123,7 +123,7 @@ function* findPreviews(game, retry) {
         .goto(url)
         .wait(1000)
         .wait('table#team-fixtures-summary')
-        .evaluate(function () {
+        .evaluate(function (game) {
 
             var previews;
 
@@ -143,7 +143,7 @@ function* findPreviews(game, retry) {
             }
 
             return previews;
-        })
+        },game)
         .catch(error => {
             var message;
             if (typeof error.details != "undefined" && error.details != "") {
