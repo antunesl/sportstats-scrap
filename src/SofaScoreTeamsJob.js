@@ -1,5 +1,7 @@
 var nightmare = require('nightmare'),
     tryCount = 0,
+
+    settings = require('./settings'),
     request = require('request'),
     currentTeam = {};
 

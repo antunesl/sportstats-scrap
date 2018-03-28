@@ -1,5 +1,6 @@
 var cron = require('node-cron'),
     leaguesJob = require('./SofaScoreLeagues'),
+    settings = require('./settings'),
     request = require('request');
 
 tryCount = 0;

@@ -1,4 +1,5 @@
-var cron = require('node-cron'),    
+var cron = require('node-cron'), 
+settings = require('./settings'),   
     request = require('request');
 
 tryCount = 0;
