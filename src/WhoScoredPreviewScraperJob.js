@@ -107,6 +107,7 @@ function* scrapGamePreview(value) {
 
     var data = yield nbot
         .goto(url)
+        .cookies.clear()
         .wait('.pitch')
         .evaluate(function (homeTeamPermalink) {
 
