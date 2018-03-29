@@ -31,7 +31,8 @@ cron.schedule('*/1 * * * *', function () {
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {
 
-        var objs = [{ away: "Blackpool", home: "Milton Keynes Dons", link: "/Matches/1193046/Preview/England-League-1-2017-2018-Milton-Keynes-Dons-Blackpool" }];
+        console.log(JSON.stringify(data));
+        // var objs = [{ away: "Blackpool", home: "Milton Keynes Dons", link: "/Matches/1193046/Preview/England-League-1-2017-2018-Milton-Keynes-Dons-Blackpool" }];
 
         if (err) {
             console.log('Error:', err);
