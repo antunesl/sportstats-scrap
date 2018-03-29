@@ -25,10 +25,10 @@ module.exports = {
 
         console.log('start')
         z = 0;
-        console.log(JSON.stringify(gamesToScrap));
+        
         results = yield* running(gamesToScrap);
 
-        console.log(JSON.stringify(results))
+        console.log('final - '  +JSON.stringify(results))
 
         // console.lorekg('before send  ->'.JSON.stringify(results));
         // request.post({
@@ -153,7 +153,7 @@ function* findPreviews(game, retry) {
 
         })
     
-    console.log(JSON.stringify(value))
+   console.log('value - ' + JSON.stringify(value));
 
     return value;
 
