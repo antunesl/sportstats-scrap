@@ -113,7 +113,7 @@ function* findPreviews(game, retry) {
         .useragent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36')
 
         .goto(url)
-        .wait(1500)
+        .wait(3000)
         .wait('table#team-fixtures-summary')
         .evaluate(function (game) {
 
