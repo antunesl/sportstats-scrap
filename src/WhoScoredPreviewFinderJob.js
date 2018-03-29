@@ -20,15 +20,17 @@ module.exports = {
     scrapGames: function* run(gamesToScrap) {
         nbot = nightmare({
             switches: { 'ignore-certificate-errors': true },
-            show: false
+            show: true,
+            width: 1920,
+            height: 1080
         });
 
         console.log('start')
         z = 0;
-        
+
         results = yield* running(gamesToScrap);
 
-        console.log('final - '  +JSON.stringify(results))
+        console.log('final - ' + JSON.stringify(results))
 
         // console.lorekg('before send  ->'.JSON.stringify(results));
         // request.post({
@@ -40,7 +42,7 @@ module.exports = {
         // });
 
         request.post({
-            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath+ 'teams/games/scrap',
+            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'teams/games/scrap',
             json: true,
             body: results
         }, function (error, response, body) {
@@ -74,8 +76,9 @@ function* running(games) {
     //         retryCount: 0
     //     });
     // });
-    
+
     for (i = 0; i < games.length; i++) {
+
         console.log(' --- ');
         console.log('Running [' + (i + 1) + '] of ' + games.length)
         console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName + '] Going to start scraping url for home team: ' + games[i].nextGame.homeTeamLink);
@@ -88,17 +91,17 @@ function* running(games) {
             results.push(r);
         }
         else {
-            console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName +  '] Scraping error.');
-  
+            console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName + '] Scraping error.');
+
         }
 
 
     }
     var final = {
-        docs:results
+        docs: results
     };
 
-    return  yield final ;
+    return yield final;
 
 }
 
@@ -113,6 +116,7 @@ function* findPreviews(game, retry) {
         .useragent('Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36')
 
         .goto(url)
+        .cookies.clear()
         .wait(1500)
         .wait('table#team-fixtures-summary')
         .evaluate(function (game) {
@@ -126,7 +130,7 @@ function* findPreviews(game, retry) {
                 if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
                     previews = {
                         home: game.team,
-                        
+
                         link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
                     }
 
@@ -135,7 +139,7 @@ function* findPreviews(game, retry) {
             }
 
             return previews;
-        },game)
+        }, game)
         .catch(error => {
             var message;
             if (typeof error.details != "undefined" && error.details != "") {
@@ -152,8 +156,8 @@ function* findPreviews(game, retry) {
             console.log(error);
 
         })
-    
-   console.log('value - ' + JSON.stringify(value));
+
+    console.log('value - ' + JSON.stringify(value));
 
     return value;
 
