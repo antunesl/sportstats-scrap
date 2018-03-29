@@ -108,7 +108,7 @@ function* scrapGamePreview(value) {
     var data = yield nbot
         .goto(url)
         .wait('.pitch')
-        .evaluate(function () {
+        .evaluate(function (homeTeamPermalink) {
 
             var homeSquad = $('div.pitch > .home > ul')
             var homeLineup = [];
@@ -186,7 +186,7 @@ function* scrapGamePreview(value) {
                 missingAwayPlayers: missingAwayPlayers
             };
             return data;
-        })
+        }, homeTeamPermalink)
         .catch(error => {
             var message;
             if (typeof error.details != "undefined" && error.details != "") {
