@@ -87,26 +87,18 @@ function* running(games) {
             console.log(JSON.stringify(r))
             results.push(r);
         }
+        else {
+            console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName +  '] Scraping error.');
+  
+        }
 
 
     }
-    // console.log('results -> ' + JSON.stringify(results));
+    var final = {
+        docs:results
+    };
 
-    // nbot = nightmare({
-    //     switches: { 'ignore-certificate-errors': true },
-    //     show: false
-    // });
-
-    // var detail = [];
-    // for (j = 0; j < results.length; j++) {
-    //     var res = yield* detailGameInfo(results[j]);
-    //     if(res)
-    //     {
-    //         detail.push(res);
-    //     }
-    // }
-
-    return yield {docs : results} ;
+    return  yield final ;
 
 }
 
