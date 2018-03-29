@@ -6,7 +6,7 @@ tryCount = 0;
 
 
 
-cron.schedule('*/1 * * * *', function () {
+cron.schedule('*/5 * * * *', function () {
     console.log('Preview Scraper')
 
     // var objs = [{ away: "Blackpool", home: "Milton Keynes Dons", link: "/Matches/1193046/Preview/England-League-1-2017-2018-Milton-Keynes-Dons-Blackpool" }];
