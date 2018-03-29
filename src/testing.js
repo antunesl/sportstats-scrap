@@ -13,7 +13,7 @@ function* run() {
        team : 'MU'
     }
      nightmare = Nightmare({
-        show: true,
+        show: false,
         width: 1920,
         height: 1080,
         waitTimeout: 100000,
@@ -39,7 +39,7 @@ function* run() {
 
                 if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
                     previews = {
-                        home: game.team,
+                        home: team.team,
                         
                         link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
                     }
