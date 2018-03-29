@@ -117,7 +117,7 @@ function* findPreviews(game, retry) {
 
         .goto(url)
         .cookies.clear()
-        .wait(1500)
+        // .wait(1500)
         .wait('table#team-fixtures-summary')
         .evaluate(function (game) {
 
