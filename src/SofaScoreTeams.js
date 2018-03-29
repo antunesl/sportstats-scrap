@@ -1,12 +1,11 @@
-var teamsJob = require('./SofaScoreTeamsJob');
+var teamsJob = require('./WhoScoredPreviewFinderJob');
 var vo = require('vo');
 
 function* Job() {
     console.log('hello job')
-    var results = yield teamsJob.scrapTeams(['https://www.sofascore.com/team/football/manchester-city/17',
-    'https://www.sofascore.com/team/football/manchester-united/35',
-    'https://www.sofascore.com/team/football/liverpool/44',
-    'https://www.sofascore.com/team/football/tottenham-hotspur/33'])
+    var results = yield teamsJob.scrapGames(['https://www.whoscored.com/Teams/32/Show/England-Manchester-United',
+    ' https://www.whoscored.com/Teams/162/Show/England-Crystal-Palace',
+    'https://www.whoscored.com/Teams/15/Show/England-Chelsea'])
 
 }
 
