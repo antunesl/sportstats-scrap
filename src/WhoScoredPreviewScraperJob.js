@@ -101,6 +101,7 @@ function* running(games) {
 }
 
 function* scrapGamePreview(value) {
+    var homeTeamPermalink = value.home;
     var url = 'https://www.whoscored.com' + value.link;
     console.log('ScrapGamePreview: ' + url);
 
@@ -174,6 +175,7 @@ function* scrapGamePreview(value) {
 
 
             var data = {
+                homeTeamPermalink: homeTeamPermalink,
                 homeTeam: $('div.match-header > table > tbody > tr > td.team')[0].innerText,
                 awayTeam: $('div.match-header > table > tbody > tr > td.team')[1].innerText,
                 homeLineup: homeLineup,
