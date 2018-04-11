@@ -25,7 +25,7 @@ cron.schedule('*/1 * * * *', function () {
                 request.post({
                     url: 'http://127.0.0.1:3007/WhoScoredPreviewFinder',
                     json: true,
-                    body: { games: data.result.docs }
+                    body: { games: data }
                 }, function (error, response, body) {
                     console.log(error);
                 });
