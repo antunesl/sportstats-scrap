@@ -10,7 +10,7 @@ cron.schedule('*/1 * * * *', function () {
     console.log('start Games')
 
     var t = request.get({
-        url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'teams/games/scrap/pending',
+        url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'leagues/games/scrap/pending',
         json: true, 
         headers: { 'User-Agent': 'request' }
     }, (err, res, data) => {
@@ -20,8 +20,8 @@ cron.schedule('*/1 * * * *', function () {
             console.log('Status:', res.statusCode);
         } else {
 
-            if (data.result.docs.length > 0) {
-                console.log(data.result.docs.length + ' games pending...')
+            if (data.result.length > 0) {
+                console.log(data.result.length + ' leagues pending...')
                 request.post({
                     url: 'http://127.0.0.1:3007/WhoScoredPreviewFinder',
                     json: true,
