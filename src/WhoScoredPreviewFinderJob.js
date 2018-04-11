@@ -32,22 +32,15 @@ module.exports = {
 
         console.log('final - ' + JSON.stringify(results))
 
-        // console.lorekg('before send  ->'.JSON.stringify(results));
+    
+
         // request.post({
-        //     url: 'http://127.0.0.1:3000/api/teams/scrap',
+        //     url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'teams/games/scrap',
         //     json: true,
         //     body: results
         // }, function (error, response, body) {
         //     console.log('API - ' + body)
         // });
-
-        request.post({
-            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'teams/games/scrap',
-            json: true,
-            body: results
-        }, function (error, response, body) {
-            console.log('API - ' + body)
-        });
 
         nbot.end();
         nbot.proc.disconnect();
@@ -66,32 +59,23 @@ function* running(games) {
     var results = [];
     var retries = [];
 
-    console.log('Games: ' + JSON.stringify(games));
+    
 
-    // Initialize retry counters
-    // games.forEach(league => {
-    //     retries.push({
-    //         permalink: league.permalink,
-    //         maxRetries: globalMaxRetries,
-    //         retryCount: 0
-    //     });
-    // });
+ 
 
-    for (i = 0; i < games.length; i++) {
+    for (i = 0; i < games.result.length; i++) {
 
         console.log(' --- ');
-        console.log('Running [' + (i + 1) + '] of ' + games.length)
-        console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName + '] Going to start scraping url for home team: ' + games[i].nextGame.homeTeamLink);
-        // results.push(yield* scrapLeagueInfo(teams[i]));
-        var r = yield* findPreviews(games[i]);
+        console.log('Running [' + (i + 1) + '] of ' + games.result.length)
+        console.log('Going to start scraping url for league: ' + games.result[i].league);
+        var r = yield* findPreviews(games.result[i]);
 
         if (r != null) {
-            console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName + '] Scraping done.');
-            console.log(JSON.stringify(r))
+     
             results.push(r);
         }
         else {
-            console.log('[' + games[i].nextGame.homeTeamName + ' - ' + games[i].nextGame.awayTeamName + '] Scraping error.');
+             console.log('[' + games.result[i].league + '] Scraping error.');
 
         }
 
@@ -107,9 +91,9 @@ function* running(games) {
 
 function* findPreviews(game, retry) {
     tryCount = retry;
-    currentTeam = game;
+    currentTeam = game.league;
 
-    var url = game.nextGame.homeTeamLink;
+    var url = game.league;
 
     console.log('starting Scrap Url ' + url);
     var value = yield nbot
@@ -118,28 +102,28 @@ function* findPreviews(game, retry) {
         .goto(url)
         .cookies.clear()
         // .wait(1500)
-        .wait('table#team-fixtures-summary')
-        .evaluate(function (game) {
+        .wait('table#tournament-fixture')
+        .evaluate(function () {
 
-            var previews;
+            var previews = [];
 
-            var rows = $('table#team-fixtures-summary > tbody > tr');
+            var rows = $('table#tournament-fixture > tbody > tr.item');
 
             for (var i = 0, row; row = rows[i]; i++) {
 
-                if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
-                    previews = {
-                        home: game.team,
+                if ((row.querySelectorAll('a.match-link.preview.rc')[0]!= null)) {
+                    previews.push({
+                        home:row.querySelectorAll('td > a.team-link')[0].innerText,
+                        away:row.querySelectorAll('td > a.team-link')[1].innerText,
+                        link: row.querySelectorAll('a.match-link.preview.rc')[0].getAttribute('href')
+                    })
 
-                        link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
-                    }
-
-                    break;
+                    
                 }
             }
-
+            
             return previews;
-        }, game)
+        })
         .catch(error => {
             var message;
             if (typeof error.details != "undefined" && error.details != "") {
