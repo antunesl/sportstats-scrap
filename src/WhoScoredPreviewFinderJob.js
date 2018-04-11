@@ -82,7 +82,7 @@ function* running(games) {
 
     }
     var final = {
-        docs: results
+         results
     };
 
     return yield final;
