@@ -35,7 +35,7 @@ module.exports = {
 
 
         request.post({
-            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'games/scrap',
+            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'leagues/games/scrap',
             json: true,
             body: results
         }, function (error, response, body) {
