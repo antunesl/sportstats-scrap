@@ -30,11 +30,22 @@ module.exports = {
 
         results = yield* running(gamesToScrap);
 
+       
+
+
+
+        results.forEach(element => {
+            var team = gamesToScrap.filter(function (el) {
+                return el.name == element.home;
+            });
+            if(team !=null && team.lenght > 0)
+            {
+                element.permalink = team[0].permalink;
+            }
+            
+        });
         console.log('final - ' + JSON.stringify(results))
-
-
-
-        request.post({ 
+        request.post({
             url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'leagues/games/scrap',
             json: true,
             body: results
@@ -80,7 +91,7 @@ function* running(games) {
 
 
     var final = {
-        docs : r
+        docs: r
     };
 
     return yield final;
@@ -113,7 +124,9 @@ function* findPreviews(game, retry) {
                     previews.push({
                         home: row.querySelectorAll('td > a.team-link')[0].innerText,
                         away: row.querySelectorAll('td > a.team-link')[1].innerText,
-                        link: row.querySelectorAll('a.match-link.preview.rc')[0].getAttribute('href')
+                        link: row.querySelectorAll('a.match-link.preview.rc')[0].getAttribute('href'),
+                        permalink : ''
+
                     })
 
 
