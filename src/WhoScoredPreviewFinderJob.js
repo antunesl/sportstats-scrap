@@ -38,8 +38,9 @@ module.exports = {
             var team = gamesToScrap.result.teams.filter(function (el) {
                 return el.name == element.home;
             });
-            if(team !=null && team.lenght > 0)
+            if(team !=null && team.length > 0)
             {
+
                 element.permalink = team[0].permalink;
             }
             
