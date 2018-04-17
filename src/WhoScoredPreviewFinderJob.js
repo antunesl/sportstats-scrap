@@ -32,15 +32,15 @@ module.exports = {
 
         console.log('final - ' + JSON.stringify(results))
 
-    
 
-        // request.post({
-        //     url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'teams/games/scrap',
-        //     json: true,
-        //     body: results
-        // }, function (error, response, body) {
-        //     console.log('API - ' + body)
-        // });
+
+        request.post({
+            url: 'http://' + settings.api.hostUrl + settings.api.apiBasePath + 'games/scrap',
+            json: true,
+            body: results
+        }, function (error, response, body) {
+            console.log('API - ' + body)
+        });
 
         nbot.end();
         nbot.proc.disconnect();
@@ -59,30 +59,28 @@ function* running(games) {
     var results = [];
     var retries = [];
 
-    
 
- 
 
-    for (i = 0; i < games.result.length; i++) {
 
-        console.log(' --- ');
-        console.log('Running [' + (i + 1) + '] of ' + games.result.length)
-        console.log('Going to start scraping url for league: ' + games.result[i].league);
-        var r = yield* findPreviews(games.result[i]);
 
-        if (r != null) {
-     
-            results.push(r);
-        }
-        else {
-             console.log('[' + games.result[i].league + '] Scraping error.');
 
-        }
+    console.log(' --- ');
+    console.log('Going to start scraping url for league: ' + games.result.league);
+    var r = yield* findPreviews(games.result);
 
+    if (r != null) {
+
+        results.push(r);
+    }
+    else {
+        console.log('[' + games.result[i].league + '] Scraping error.');
 
     }
+
+
+
     var final = {
-         results
+        docs : r
     };
 
     return yield final;
@@ -111,17 +109,17 @@ function* findPreviews(game, retry) {
 
             for (var i = 0, row; row = rows[i]; i++) {
 
-                if ((row.querySelectorAll('a.match-link.preview.rc')[0]!= null)) {
+                if ((row.querySelectorAll('a.match-link.preview.rc')[0] != null)) {
                     previews.push({
-                        home:row.querySelectorAll('td > a.team-link')[0].innerText,
-                        away:row.querySelectorAll('td > a.team-link')[1].innerText,
+                        home: row.querySelectorAll('td > a.team-link')[0].innerText,
+                        away: row.querySelectorAll('td > a.team-link')[1].innerText,
                         link: row.querySelectorAll('a.match-link.preview.rc')[0].getAttribute('href')
                     })
 
-                    
+
                 }
             }
-            
+
             return previews;
         })
         .catch(error => {
