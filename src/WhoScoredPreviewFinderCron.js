@@ -20,7 +20,7 @@ cron.schedule('*/1 * * * *', function () {
             console.log('Status:', res.statusCode);
         } else {
 
-            if (data.result!= null) {
+            if (data.result != null && data.result.length > 0) {
                 console.log(data.result.league + ' leagues pending...')
                 request.post({
                     url: 'http://127.0.0.1:3007/WhoScoredPreviewFinder',
