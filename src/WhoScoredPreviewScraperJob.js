@@ -68,12 +68,12 @@ function* running(games) {
     for (i = 0; i < games.length; i++) {
         console.log(' --- ');
         console.log('Running [' + (i + 1) + '] of ' + games.length)
-        console.log('[' + games[i].home + ' - ' + games[i].away + '] Going to start scraping url ' + games[i].link);
+        console.log('[' + games[i].home +'] Going to start scraping url ' + games[i].link);
         // results.push(yield* scrapLeagueInfo(teams[i]));
         var r = yield* scrapGamePreview(games[i]);
 
         if (r != null) {
-            console.log('[' + games[i].name + '] Scraping done.');
+            console.log('[' + games[i].home + '] Scraping done.');
             console.log(JSON.stringify(r))
             results.push(r);
         }
