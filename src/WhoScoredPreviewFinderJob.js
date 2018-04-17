@@ -35,7 +35,7 @@ module.exports = {
 
 
         results.docs.forEach(element => {
-            var team = gamesToScrap.filter(function (el) {
+            var team = gamesToScrap.result.teams.filter(function (el) {
                 return el.name == element.home;
             });
             if(team !=null && team.lenght > 0)
