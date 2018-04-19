@@ -160,11 +160,7 @@ getData = (league) => {
         }
     }
 
-    if (knockoutStage.length > 0) {
-        knockoutStage = knockoutStage.sort(function (a, b) {
-            return a.order - b.order;
-        })
-    }
+
 
     var factsLeague = $('table.table.table--justified > tbody > tr > td.ff-medium');
     var titleHolderSelector = $('a.cell__section--main.u-flex-halves.u-br.u-p4.hover-link-block.js-link');
