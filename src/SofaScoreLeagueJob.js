@@ -109,7 +109,7 @@ function* running(leagues) {
 
 function* scrapLeagueInfo(league) {
 
-    if(league.type != 'Normal')
+    if(league.type != 'Normal' && league.type != 'GroupsKnockout')
     {
         console.log('Worker ' + league.type + ' not found');
         return null;

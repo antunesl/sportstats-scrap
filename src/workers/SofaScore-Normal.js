@@ -1,6 +1,6 @@
 getData = (league) => {
     var items = [];
-
+    $('label.js-tournament-page-events-select-round.radio-switch__item')[0].click();
 
             var rows = $('.tab-pane.active > .standings-table > .cell.cell--standings');
             //GET STANDINGS
