@@ -114,7 +114,7 @@ function* scrapLeagueInfo(league) {
         console.log('Worker ' + league.type + ' not found');
         return null;
     }
-    var workerName = league.providers[0].name + '-' + league.type;
+    var workerName = league.providers[0].name + '-' + league.type + ".js";
     console.log('Loading Worker - ' + workerName);
     console.log('starting Scrap Url ' + league.providers[0].link);
     var value = yield nbot
