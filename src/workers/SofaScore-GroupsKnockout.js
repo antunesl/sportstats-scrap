@@ -2,31 +2,30 @@ getData = (league) => {
     $('label.js-tournament-page-events-select-round.radio-switch__item')[0].click();
     var groupsStage = [];
     //GET GROUP STAGE 
-    if($('.js-uniqueTournament-page-standings-tables-container')[0] != null)
-    {
+    if ($('.js-uniqueTournament-page-standings-tables-container')[0] != null) {
         var stage = $('.js-uniqueTournament-page-standings-tables-container')[0];
         var groups = $('.js-uniqueTournament-page-standings-tables-container')[0]
-                        .querySelectorAll('span.u-inline-block.h-small.u-pV12.standings-table-title');
-        
+            .querySelectorAll('span.u-inline-block.h-small.u-pV12.standings-table-title');
+
         for (var i = 0, group; group = groups[i]; i++) {
             var groupName = group.innerText;
             var tempGroup = stage.querySelectorAll('.tab-pane.active > .standings-table')[i];
             var teams = tempGroup.querySelectorAll('.cell.cell--standings');
             var groupTeam = [];
             for (var ii = 0, row; row = teams[ii]; ii++) {
-              
+
                 var data = row.querySelectorAll('div');
-             
+
                 var position = data[0].innerText.trim();
-              
+
                 var teamName = row.querySelectorAll('.cell__content.standings__team-name')[0].innerText;
-               
+
                 var provider = {
                     name: 'SofaScore',
                     link: row.querySelectorAll('.cell__content.standings__team-name > a.js-link')[0].href
                 };
-        
-              
+
+
                 var gameInfo = row.querySelectorAll('.cell__content.standings__data.standings__columns-32 > span');
                 var played = gameInfo[0].innerText;
                 var win = gameInfo[1].innerText;
@@ -35,7 +34,7 @@ getData = (league) => {
                 var goals = gameInfo[4].innerText.split(':');
                 var goalScored = goals[0];
                 var goalConceded = goals[1];
-        
+
                 var results = [];
                 var lastResults = row.querySelectorAll('.cell__section.standings__last-5.switch-content.js-standings-view-form > div > a > span');
                 for (var x = 0, result; result = lastResults[x]; x++) {
@@ -48,7 +47,7 @@ getData = (league) => {
                         results.push('D');
                 }
                 var points = row.querySelectorAll('.cell__section.standings__points')[0].innerText.trim();
-        
+
                 var data = {
                     position: position,
                     teamName: teamName,
@@ -64,59 +63,56 @@ getData = (league) => {
                 }
 
                 groupTeam.push(data);
-        
+
             }
             var data = {
-                groupTeams : groupTeam,
-                groupName : groupName
+                groupTeams: groupTeam,
+                groupName: groupName
             }
             groupsStage.push(data);
         }
-        
+
 
     }
 
     //GET KNOCKOUT STAGE 
     var knockoutStage = [];
-    if($('.cup-tree')[0] != null)
-    {
+    if ($('.cup-tree')[0] != null) {
         var games = $('button.cell.tree-cell.tree-cell--dropdown');
         for (var i = 0, game; game = games[i]; i++) {
             var order;
-           
 
-            if(game.getAttribute('data-order') != null)
-            {
+
+            if (game.getAttribute('data-order') != null) {
                 order = parseInt(game.getAttribute('data-order'));
             }
             var teams = game.querySelectorAll('.cell.tree-cell__inner.u-pH4');
+            if (game[0] != null || game[1] != null) {
+                var winHomeTeam = game[0].classList.contains('u-text-regular');
+                var winAwayTeam = game[1].classList.contains('u-text-regular');
+                var homeTeam = game[0].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
+                var awayTeam = game[1].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
+                var homeTeamScored;
+                var awayTeamScored;
+                if (game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
+                    homeTeamScored = parseInt(game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
+                }
 
-            var winHomeTeam = game[0].classList.contains('u-text-regular');
-            var winAwayTeam = game[1].classList.contains('u-text-regular');
-            var homeTeam = game[0].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
-            var awayTeam = game[1].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
-            var homeTeamScored;
-            var awayTeamScored;
-            if(game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '')
-            {
-                homeTeamScored = parseInt(game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
+                if (game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
+                    awayTeamScored = parseInt(game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
+                }
+
+                knockoutStage.push({
+                    homeTeam: homeTeam,
+                    awayTeam: awayTeam,
+                    homeTeamScored: homeTeamScored,
+                    awayTeamScored: awayTeamScored,
+                    winHomeTeam: winHomeTeam,
+                    winAwayTeam: winAwayTeam,
+                    order: order
+
+                })
             }
-
-            if(game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '')
-            {
-                awayTeamScored = parseInt(game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
-            }
-
-            knockoutStage.push({
-                homeTeam : homeTeam,
-                awayTeam : awayTeam,
-                homeTeamScored : homeTeamScored,
-                awayTeamScored : awayTeamScored,
-                winHomeTeam : winHomeTeam,
-                winAwayTeam : winAwayTeam,
-                order : order
-
-            })
         }
 
     }
@@ -164,9 +160,8 @@ getData = (league) => {
         }
     }
 
-    if(knockoutStage.length > 0 )
-    {
-        knockoutStage = knockoutStage.sort(function(a,b){
+    if (knockoutStage.length > 0) {
+        knockoutStage = knockoutStage.sort(function (a, b) {
             return a.order - b.order;
         })
     }
@@ -176,7 +171,7 @@ getData = (league) => {
     var leagueData = {
         provider: league.providers[0],
         groupStage: groupsStage,
-        knockoutStage : knockoutStage,
+        knockoutStage: knockoutStage,
         topScores: topScores,
         name: $('h2.page-title > span')[0].innerText.trim(),
 
