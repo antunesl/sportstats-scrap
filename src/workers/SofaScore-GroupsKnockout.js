@@ -102,7 +102,7 @@ getData = (league) => {
                     awayTeamScored = parseInt(game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
                 }
 
-                knockoutStage.push({
+                var data = {
                     homeTeam: homeTeam,
                     awayTeam: awayTeam,
                     homeTeamScored: homeTeamScored,
@@ -111,7 +111,9 @@ getData = (league) => {
                     winAwayTeam: winAwayTeam,
                     order: order
 
-                })
+                };
+                
+                knockoutStage.push(data);
             }
         }
 
