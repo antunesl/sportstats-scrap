@@ -87,19 +87,19 @@ getData = (league) => {
                 order = parseInt(game.getAttribute('data-order'));
             }
             var teams = game.querySelectorAll('.cell.tree-cell__inner.u-pH4');
-            if (game[0] != null || game[1] != null) {
-                var winHomeTeam = game[0].classList.contains('u-text-regular');
-                var winAwayTeam = game[1].classList.contains('u-text-regular');
-                var homeTeam = game[0].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
-                var awayTeam = game[1].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
+            if (teams[0] != null || teams[1] != null) {
+                var winHomeTeam = teams[0].classList.contains('u-text-regular');
+                var winAwayTeam = teams[1].classList.contains('u-text-regular');
+                var homeTeam = teams[0].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
+                var awayTeam = teams[1].querySelectorAll('.cell__clamp--small.hidden-md')[0].innerText;
                 var homeTeamScored;
                 var awayTeamScored;
-                if (game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
-                    homeTeamScored = parseInt(game[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
+                if (teams[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
+                    homeTeamScored = parseInt(teams[0].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
                 }
 
-                if (game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
-                    awayTeamScored = parseInt(game[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
+                if (teams[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText != '') {
+                    awayTeamScored = parseInt(teams[1].querySelectorAll('.cell__section.u-w28.u-pR4.u-tR > div')[0].innerText);
                 }
 
                 var data = {
