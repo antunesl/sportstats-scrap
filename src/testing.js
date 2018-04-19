@@ -7,13 +7,18 @@ vo(run)(function (err, result) {
 });
 
 
+function testingStuff(type)
+{
+    return type + ' done' ;
+}
+
 
 function* run() {
     var team = {
        team : 'MU'
     }
      nightmare = Nightmare({
-        show: false,
+        show: true,
         width: 1920,
         height: 1080,
         waitTimeout: 100000,
@@ -26,31 +31,14 @@ function* run() {
     });
     console.log('hello')
     var title = yield nightmare
-        
-        .goto("https://www.whoscored.com/Teams/31/Show/England-Everton")
+        .inject('testing.js')
+        .goto("https://www.sofascore.com/tournament/football/europe/uefa-champions-league/7")
         .wait(1000)
         .wait('table#team-fixtures-summary')
-        .evaluate(function (team) {
-            var previews;
-
-            var rows = $('table#team-fixtures-summary > tbody > tr');
-
-            for (var i = 0, row; row = rows[i]; i++) {
-
-                if ((row.querySelectorAll('td.toolbar.right')[0].innerText == 'Preview')) {
-                    previews = {
-                        home: team.team,
-                        
-                        link: row.querySelectorAll('td.toolbar.right > a')[0].getAttribute('href')
-                    }
-
-                    break;
-                }
-            }
-
-            return previews;
-
-        }, team)
+        .evaluate(function (testingStuff) {
+            
+            return testingStuff('1');
+        }, testingStuff)
 
 
         .then(function (item) {
