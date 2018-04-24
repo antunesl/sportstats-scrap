@@ -115,7 +115,7 @@ getData = (league) => {
                 nextScrapAt: nextGame,
                 nextPreviewScrapAt: nextGame,
 
-
+                teste:'hello',
 
                 titleHolder: titleHolderSelector[0].innerText.trim().split(/\r?\n/)[0],
 
