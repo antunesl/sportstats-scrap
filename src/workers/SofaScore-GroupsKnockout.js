@@ -172,7 +172,7 @@ getData = (league) => {
         knockoutStage: knockoutStage,
         topScores: topScores,
         name: $('h2.page-title > span')[0].innerText.trim(),
-
+        sport: league.sport,
         permalink: league.permalink,
         country: league.country,
         nextScrapAt: nextGame,
